@@ -12,10 +12,8 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 Session(app)
 
-# client_id = os.environ.get("SPOTIPY_CLIENT_ID")
-client_id = "8549e05651e64b68b52fe6cd6de1b1b2"    
-# client_secret = os.environ.get("SPOTIPY_CLIENT_SECRET")
-client_secret = "5bdb61996db743548853462ea162bb4a"
+client_id = os.environ.get("SPOTIPY_CLIENT_ID")   
+client_secret = os.environ.get("SPOTIPY_CLIENT_SECRET")
 
 os.environ["SPOTIPY_REDIRECT_URI"] = "http://localhost:8080/callback"
 redirect_uri = os.environ.get("SPOTIPY_REDIRECT_URI")
@@ -34,16 +32,26 @@ def index():
         auth_url = sp_oauth.get_authorize_url()
         return redirect(auth_url)
     else:
+        return render_template('index.html')
+
+@app.route("/top_artists_tracks")
+def top_artists_tracks():
+    if not session.get('token_info'):
+        return redirect("/")
+    else:
         token_info = session.get('token_info')
         sp = spotipy.Spotify(token_info['access_token'])
-        long = sp.current_user_top_artists(time_range='long_term', limit=10)['items']
-        med = sp.current_user_top_artists(time_range='medium_term', limit=10)['items']
-        short = sp.current_user_top_artists(time_range='short_term', limit=10)['items']
-        # for i, artist in enumerate(results):
-        #     print(str(i) + " " + artist['name'])
 
-        return render_template('top_artists.html', long=long, med = med, short = short)
+        long_ar = sp.current_user_top_artists(time_range='long_term', limit=25)['items']
+        med_ar = sp.current_user_top_artists(time_range='medium_term', limit=25)['items']
+        short_ar = sp.current_user_top_artists(time_range='short_term', limit=25)['items']
 
+        long_so = sp.current_user_top_tracks(time_range='long_term', limit=25)['items']
+        med_so = sp.current_user_top_tracks(time_range='medium_term', limit=25)['items']
+        short_so = sp.current_user_top_tracks(time_range='short_term', limit=25)['items']
+
+        return render_template('top_artists_tracks.html', long_ar=long_ar, med_ar=med_ar, short_ar=short_ar,
+                                                long_so=long_so, med_so=med_so, short_so=short_so)
 
 @app.route("/callback")
 def callback():
