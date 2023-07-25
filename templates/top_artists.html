@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Top Artists</title>
+    </head>
+    <body>
+        <h1>Your Top Artists: All Time</h1>
+        <ul>
+            {% for item in long %}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h1>Your Top Artists: Medium Term</h1>
+        <ul>
+            {% for item in med %}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h1>Your Top Artists: Short Term</h1>
+        <ul>
+            {% for item in short %}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
