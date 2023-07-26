@@ -19,7 +19,6 @@ The following is a set of guidelines for contributing to Sp-RMX. These are just 
 ### Pull Requests
 
 - Fork the repository and create a new branch from `main` for your work.
-- Ensure the test suite passes.
 - Create a pull request for your changes. Include relevant information in the description of the pull request.
 
 ## Styleguides
