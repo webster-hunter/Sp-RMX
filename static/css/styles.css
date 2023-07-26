@@ -1,0 +1,73 @@
+.item-list {
+    height: 275px;  /* adjust as needed */
+    overflow-y: scroll;
+    background-color: #D3D3D3;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-bottom: 2rem;
+}
+
+.container {
+    background-color: #343A40;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}
+
+.container h1{
+    color: #D3D3D3
+}
+
+.item-list a {
+    color: black;
+}
+
+body {
+    padding-top: 3rem;
+}
+
+.list-title {
+    color: #D3D3D3;
+}
+
+.item-list::-webkit-scrollbar {
+    width: 10px;  /* Width of the scrollbar */
+}
+
+.item-list::-webkit-scrollbar-track {
+    background: #343A40;  /* Color of the track */
+}
+
+.item-list::-webkit-scrollbar-thumb {
+    background: #888;  /* Color of the scroll thumb */
+}
+
+.item-list::-webkit-scrollbar-thumb:hover {
+    background: #555;  /* Color of the scroll thumb when hovered */
+}
+
+.navbar {
+    border-right: 2px solid #D3D3D3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 225px; /* Adjust width as needed */
+    overflow: auto;
+}
+
+.main-content {
+    margin-left: 250px; /* Same as the width of the navbar */
+}
+
+body {
+    padding-top: 2rem;
+}
+
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.main-content {
+    margin-left: 250px; /* Same as the width of the navbar */
+}
