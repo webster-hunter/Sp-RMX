@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>[Sp-RMX] Artists & Tracks</title>
+        <title>[Sp-RMX] Genres</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-        
+
         {% macro render_list(title, list) %}
             <div class="col-md-4">
                 <h2 class="list-title" style="text-align: center;">{{ title }}</h2>
@@ -25,21 +25,12 @@
             <div class="container">
                 <h1 style="text-align: center;">A R T I S T S</h1>
                 <div class="row">
-                    {{ render_list('All Time', long_ar) }}
-                    {{ render_list('Last 6 Months', med_ar) }}
-                    {{ render_list('Last 4 Weeks', short_ar) }}
+                    {{ render_list('All Time', genres_l) }}
+                    {{ render_list('Last 6 Months', genres_m) }}
+                    {{ render_list('Last 4 Weeks', genres_s) }}
                 </div>
             </div>
-        
-            <div class="container">
-                <h1 style="text-align: center;">T R A C K S</h1>
-                <div class="row">
-                    {{ render_list('All Time', long_so) }}
-                    {{ render_list('Last 6 Months', med_so) }}
-                    {{ render_list('Last 4 Weeks', short_so) }}
-                </div>
-            </div>
-        </div>    
+        </div>
 
         <script src="{{ url_for('static', filename='js/jquery-3.7.0.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
