@@ -1,8 +1,9 @@
-from flask import Flask, redirect, request, render_template, session
+from flask import Flask, redirect, request, render_template, session, url_for
 from flask_session import Session
 import spotipy
 import os
 from spotipy.oauth2 import SpotifyOAuth
+import modules.sp_info_access as info
 
 app = Flask(__name__)
 
@@ -52,6 +53,30 @@ def top_artists_tracks():
 
         return render_template('top_artists_tracks.html', long_ar=long_ar, med_ar=med_ar, short_ar=short_ar,
                                                 long_so=long_so, med_so=med_so, short_so=short_so)
+    
+
+@app.route('/genres')
+def genres():
+    if not session.get('token_info'):
+        return redirect("/")
+    else:
+        token_info = session.get('token_info')
+        sp = spotipy.Spotify(token_info['access_token'])
+
+        genres_l = info.MyTopGenres(sp.current_user_top_tracks(time_range='long_term', limit=25)['items'])
+        genres_m = info.MyTopGenres(sp.current_user_top_tracks(time_range='medium_term', limit=25)['items'])
+        genres_s = info.MyTopGenres(sp.current_user_top_tracks(time_range='short_term', limit=25)['items'])
+
+        return render_template('genres.html',genres_l=genres_l, genres_m=genres_m, genres_s=genres_s)
+
+
+@app.route('/signout')
+def signout():
+    # Invalidate the user's session
+    session.clear()
+    # Redirect the user to the main page (or a sign-in page)
+    return redirect(url_for('index'))
+
 
 @app.route("/callback")
 def callback():
