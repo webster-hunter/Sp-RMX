@@ -4,6 +4,7 @@ import spotipy
 import os
 from spotipy.oauth2 import SpotifyOAuth
 import modules.sp_info_access as info
+import modules.recommend as rec
 
 app = Flask(__name__)
 
@@ -13,8 +14,12 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 Session(app)
 
-client_id = os.environ.get("SPOTIPY_CLIENT_ID")   
-client_secret = os.environ.get("SPOTIPY_CLIENT_SECRET")
+# client_id = os.environ.get("SPOTIPY_CLIENT_ID")   
+# client_secret = os.environ.get("SPOTIPY_CLIENT_SECRET")
+
+client_id="8549e05651e64b68b52fe6cd6de1b1b2"  
+client_secret="5bdb61996db743548853462ea162bb4a"
+
 
 os.environ["SPOTIPY_REDIRECT_URI"] = "http://localhost:8080/callback"
 redirect_uri = os.environ.get("SPOTIPY_REDIRECT_URI")
@@ -63,9 +68,9 @@ def genres():
         token_info = session.get('token_info')
         sp = spotipy.Spotify(token_info['access_token'])
 
-        genres_l = info.MyTopGenres(sp.current_user_top_tracks(time_range='long_term', limit=25)['items'])
-        genres_m = info.MyTopGenres(sp.current_user_top_tracks(time_range='medium_term', limit=25)['items'])
-        genres_s = info.MyTopGenres(sp.current_user_top_tracks(time_range='short_term', limit=25)['items'])
+        genres_l = rec.MyTopGenres(sp, sp.current_user_top_tracks(time_range='long_term', limit=25)['items'])
+        genres_m = rec.MyTopGenres(sp, sp.current_user_top_tracks(time_range='medium_term', limit=25)['items'])
+        genres_s = rec.MyTopGenres(sp, sp.current_user_top_tracks(time_range='short_term', limit=25)['items'])
 
         return render_template('genres.html',genres_l=genres_l, genres_m=genres_m, genres_s=genres_s)
 
